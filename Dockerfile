@@ -1,4 +1,4 @@
-# Use CentOS 7 as the base image
+$ cat Dockerfile
 FROM rockylinux:9
 
 # Install necessary packages
