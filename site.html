@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Anysite</title>
+  <style>
+    /* Style the textarea */
+    textarea {
+      width: 800px;
+      min-height: 100px;
+      resize: both;
+      font-size: larger;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <h1>Anysite</h1>
+    <h2>Input your site here in .html</h2>
+    <button id="makeItButton">Make It!</button>
+    <br><br>
+    <textarea id="htmlArea" oninput="adjustTextareaHeight()"></textarea>
+  </div>
+  <script>
+    function adjustTextareaHeight() {
+      // Get the textarea element
+      const textarea = document.getElementById("htmlArea");
+
+      // Reset the height to the minimum height to prevent scrolling
+      textarea.style.height = "auto";
+
+      // Set the new height based on the scroll height
+      textarea.style.height = textarea.scrollHeight + "px";
+    }
+
+    const makeItButton = document.getElementById("makeItButton");
+
+    makeItButton.addEventListener("click", () => {
+        const htmlAreaValue = encodeURIComponent(htmlArea.value); // Encode the htmlArea value
+        console.log(htmlAreaValue); // Log the encoded htmlArea value to the console
+
+        // Then, post the htmlArea.value to the server
+        fetch("/makeIt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            html: htmlAreaValue // Use the encoded htmlArea value
+          })
+        })
+          .then(response => response.json())
+          .then(data => {
+            window.location.href = data.url;
+          });
+      });
+
+  </script>
+</body>
+
+</html>
