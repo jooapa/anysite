@@ -1,5 +1,5 @@
 # Use CentOS 7 as the base image
-FROM centos:7
+FROM rockylinux:9
 
 # Install necessary packages
 RUN yum -y install epel-release && \
