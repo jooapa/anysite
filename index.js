@@ -18,7 +18,7 @@ app.post("/makeIt", (req, res) => {
   const compressedHtml = compress(sanitizedHtml); // Compress the HTML data
 
   const generatedUrl =
-    "http://localhost:3000/s?url=" + encodeURIComponent(compressedHtml);
+    req.headers.referer + "s?url=" + encodeURIComponent(compressedHtml);
 
   res.json({ url: generatedUrl });
 });
@@ -26,11 +26,16 @@ app.post("/makeIt", (req, res) => {
 app.post("/lookUrl", (req, res) => {
   const url = req.body.url;
   const decodedHtml = decodeURIComponent(url);
-  const decompressedHtml = deCompress(decodedHtml);
+
+  // Remove the current domain and "/s?url=" from the URL
+  const urlWithoutDomain = decodedHtml.replace(/^.*\/s\?url=/, "");
+
+  const decompressedHtml = deCompress(urlWithoutDomain);
   const uriDecodedHtml = decodeURIComponent(decompressedHtml);
   const sanitizedHtml = uriDecodedHtml.replace(/_/g, " ");
   res.json({ url: sanitizedHtml });
 });
+
 
 app.get("/s", (req, res) => {
   const url = req.query.url;
