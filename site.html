@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html>
-
 <head>
   <title>Anysite</title>
   <style>
-    /* Style the textarea */
     textarea {
       width: 800px;
       min-height: 100px;
@@ -24,16 +21,10 @@
   </div>
   <script>
     function adjustTextareaHeight() {
-      // Get the textarea element
       const textarea = document.getElementById("htmlArea");
-
-      // Reset the height to the minimum height to prevent scrolling
       textarea.style.height = "auto";
-
-      // Set the new height based on the scroll height
       textarea.style.height = textarea.scrollHeight + "px";
     }
-
     const makeItButton = document.getElementById("makeItButton");
 
     makeItButton.addEventListener("click", () => {
