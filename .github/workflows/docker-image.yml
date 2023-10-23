@@ -10,9 +10,9 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: rockylinux-9.0
 
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag anysite-image:$(date +%s)
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
