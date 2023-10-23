@@ -1,4 +1,3 @@
-$ cat Dockerfile
 FROM rockylinux:9
 
 # Install necessary packages
