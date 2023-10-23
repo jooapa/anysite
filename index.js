@@ -20,7 +20,7 @@ app.post("/makeIt", (req, res) => {
   const compressedHtml = compress(sanitizedHtml); // Compress the HTML data
 
   const generatedUrl =
-    "jooapa.github.io/anysite/s?url=" + encodeURIComponent(compressedHtml);
+    "http://localhost:3000/s?url=" + encodeURIComponent(compressedHtml);
 
   res.json({ url: generatedUrl });
 });
