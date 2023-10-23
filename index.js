@@ -10,22 +10,38 @@ app.set("view engine", "ejs");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/site.html");
+  res.sendFile(__dirname + "/public/site.html");
 });
 
 app.post("/makeIt", (req, res) => {
   const htmlData = req.body.html;
+  console.log(htmlData);
   const sanitizedHtml = htmlData.replace(/ /g, "_");
   const compressedHtml = compress(sanitizedHtml); // Compress the HTML data
 
   const generatedUrl =
-    "http://localhost:3000/s?url=" + encodeURIComponent(compressedHtml);
+    "jooapa.github.io/anysite/s?url=" + encodeURIComponent(compressedHtml);
 
   res.json({ url: generatedUrl });
 });
 
+app.post("/lookUrl", (req, res) => {
+  const url = req.body.url;
+  console.log(url);
+  const decodedHtml = decodeURIComponent(url);
+  console.log(decodedHtml);
+  const decompressedHtml = deCompress(decodedHtml);
+  console.log(decompressedHtml);
+  const uriDecodedHtml = decodeURIComponent(decompressedHtml);
+  console.log(uriDecodedHtml);
+  const sanitizedHtml = uriDecodedHtml.replace(/_/g, " ");
+  console.log(sanitizedHtml);
+  res.json({ url: sanitizedHtml });
+});
+
 app.get("/s", (req, res) => {
   const url = req.query.url;
+  console.log(url);
   const decodedHtml = decodeURIComponent(url);
   const decompressedHtml = deCompress(decodedHtml);
   const uriDecodedHtml = decodeURIComponent(decompressedHtml);
@@ -38,7 +54,6 @@ const compressionOptions = {
   threshold: 0,
 };
 
-app.use(compression(compressionOptions));
 
 const compress = (data) => {
   const compressedData = pako.gzip(data);
@@ -50,6 +65,9 @@ const deCompress = (data) => {
   const decompressedData = pako.ungzip(decodedData, { to: "string" });
   return decompressedData;
 };
+
+app.use(compression(compressionOptions));
+app.use(express.static("public"));
 
 const port = 3000;
 app.listen(port, () => {
