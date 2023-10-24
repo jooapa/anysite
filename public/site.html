@@ -8,16 +8,23 @@
 </head>
 
 <body>
-  <div id="container">
-    <h1>Anysite</h1>
-    <h2>Input your site here in .html</h2>
-    <button id="makeItButton">Make It!</button>
-    <br><br>
-    <textarea id="htmlArea" oninput="adjustTextareaHeight()"></textarea>
-    <br>Look URL code: 
-    <button id="lookUrlButton">Look URL</button>
-    <br>
-    <textarea id="testhtmlArea" oninput="adjustTextareaHeight()"></textarea>
+  <h1>Anysite</h1>
+  <h2>Input your site here in .html</h2>
+  
+  <!-- Container for the layout -->
+  <div class="container">
+    <!-- Left side with textareas -->
+    <div class="left-side">
+      <textarea id="htmlArea" oninput="adjustTextareaHeight()"></textarea>
+      <br>Look URL code:<br>
+      <textarea id="testhtmlArea" oninput="adjustTextareaHeight()"></textarea>
+    </div>
+  
+    <!-- Right side with buttons -->
+    <div class="right-side">
+      <button id="makeItButton">Make It!</button>
+      <button id="lookUrlButton">Look URL</button>
+    </div>
   </div>
 </body>
 </html>

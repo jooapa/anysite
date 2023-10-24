@@ -1,7 +1,7 @@
 const express = require("express");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
-const pako = require("pako");
+const compression = require("compression");
 
 const app = express();
 
@@ -47,15 +47,16 @@ app.get("/s", (req, res) => {
 });
 
 const compress = (data) => {
-  const compressedData = pako.gzip(data);
-  return Buffer.from(compressedData).toString("base64");
-};
+  // use the best compression
+  const compressedData = compression.compress(data, "best");
+  return compressedData;
+}
 
 const deCompress = (data) => {
-  const decodedData = Buffer.from(data, "base64");
-  const decompressedData = pako.ungzip(decodedData, { to: "string" });
+  // use the best compression
+  const decompressedData = compression.decompress(data, "best");
   return decompressedData;
-};
+}
 
 app.use(express.static("public"));
 

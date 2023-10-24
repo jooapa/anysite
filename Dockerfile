@@ -14,4 +14,8 @@ RUN npm install
 EXPOSE 3000
 
 # Start the Node.js application with "index.js"
+
 CMD ["node", "index.js"]
+
+# docker buildx build -t anysite .
+# docker run -d -p 3000:3000 anysite

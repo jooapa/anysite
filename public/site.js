@@ -11,18 +11,31 @@ makeItButton.addEventListener("click", () => {
 
   // Then, post the htmlArea.value to the server
   fetch("/makeIt", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      html: htmlAreaValue, // Use the encoded htmlArea value
-    }),
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    html: htmlAreaValue, // Use the encoded htmlArea value
+  }),
+})
+  .then((response) => {
+    if (!response.ok) {
+      // Check if the response status is not OK (in the 4xx or 5xx range)
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json(); // If response is OK, proceed with parsing JSON
   })
-    .then((response) => response.json())
-    .then((data) => {
-      window.location.href = data.url;
-    });
+  .then((data) => {
+    // Handle the successful response
+    window.location.href = data.url;
+  })
+  .catch((error) => {
+    // Handle errors, including network errors and HTTP errors
+    console.error("Fetch error:", error);
+    alert("Fetch error:", error);
+  }
+)
 });
 
 const lookUrlButton = document.getElementById("lookUrlButton");
