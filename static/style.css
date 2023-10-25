@@ -1,0 +1,39 @@
+    /* Container for the layout */
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    /* Style for the left side (textareas) */
+    .left-side {
+      flex: 1;
+      /* Take up available space */
+      margin-right: 10px;
+      /* Add some spacing between left and right sides */
+      overflow-y: scroll;
+      overflow-x: hidden;
+      /* Add vertical scrolling */
+    }
+
+    /* Style for the right side (buttons) */
+    .right-side {
+      width: 200px;
+      /* Set a fixed width for the right side */
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Style for the buttons */
+    button {
+      margin-bottom: 10px;
+      /* Add some spacing between buttons */
+    }
+
+    /* Additional styling for textareas */
+    textarea {
+      width: 100%;
+      height: 100px;
+      /* You can adjust the height as needed */
+    }
