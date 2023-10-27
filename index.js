@@ -47,13 +47,11 @@ app.get("/s", (req, res) => {
 });
 
 const compress = (data) => {
-  // use the best compression
   const compressedData = compression.compress(data, "best");
   return compressedData;
 }
 
 const deCompress = (data) => {
-  // use the best compression
   const decompressedData = compression.decompress(data, "best");
   return decompressedData;
 }
