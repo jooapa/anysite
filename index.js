@@ -14,16 +14,11 @@ lookURLButton.addEventListener("click", () => {
 });
 
 const makeIt = async (html) => {
-  const output = LZUTF8.compress(html, {
-    outputEncoding: "StorageBinaryString",
-  });;
-  var output2 = LZUTF8.compress(output, {
-    outputEncoding: "Base64",
-  });
+  const output = await compress(html);
   // modify href in a tag
-  document.getElementById("urlCode").href = currentURL + "url.html?" + output2;
+  document.getElementById("urlCode").href = currentURL + "url.html?" + output;
   document.getElementById("urlCode").innerHTML =
-    currentURL + "url.html?" + output2;
+    currentURL + "url.html?" + output;
 
 }
 
@@ -38,14 +33,20 @@ const lookURL = async (input) => {
   // input has \n, at the end, so we need to remove it
   input = input.slice(0, -1);
   
+  const output = await decompress(input);
+  document.getElementById("testhtmlArea").value = output
+}
+
+const compress = async (input) => {
+  const output = LZUTF8.compress(input, {
+    outputEncoding: "Base64",
+  });
+  return output;
+};
+
+const decompress = async (input) => {
   const output = LZUTF8.decompress(input, {
     inputEncoding: "Base64",
   });
-  
-  const output2 = LZUTF8.decompress(output, {
-    inputEncoding: "StorageBinaryString",
-  });
-
-  var output3 = decodeURIComponent(output2);
-  document.getElementById("testhtmlArea").value = output3
-}
+  return output;
+};
