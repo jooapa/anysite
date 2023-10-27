@@ -28,7 +28,6 @@
       
       // decode the url content
       urlContent = LZUTF8.decompress(urlContent, { inputEncoding: 'Base64' });
-      urlContent = LZUTF8.decompress(urlContent, { inputEncoding: 'StorageBinaryString' });
       
       // Get the container element for the iframe
       const iframeContainer = document.getElementById('anysite-frame');
